@@ -64,6 +64,7 @@ const envSchema = z.object({
   MYSQL_DATABASE: z.string().min(1, "MySQL database is required"),
   MYSQL_CONNECTION_LIMIT: z.string().optional(),
   AUTO_DELETE_LINKS: z.string().optional(),
+  AUTO_DELETE_EXPLICIT_SEXUAL_CONTENT: z.string().optional(),
   ALLOW_INVITE_LINKS: z.string().optional(),
   ALLOW_ATTACHMENT_ONLY_MESSAGES: z.string().optional(),
   AI_MODERATION_ENABLED: z.string().optional(),
@@ -102,6 +103,7 @@ const env = envSchema.parse({
   MYSQL_DATABASE: envValue("MYSQLDATABASE", "MYSQL_DATABASE"),
   MYSQL_CONNECTION_LIMIT: process.env.MYSQL_CONNECTION_LIMIT,
   AUTO_DELETE_LINKS: process.env.AUTO_DELETE_LINKS,
+  AUTO_DELETE_EXPLICIT_SEXUAL_CONTENT: process.env.AUTO_DELETE_EXPLICIT_SEXUAL_CONTENT,
   ALLOW_INVITE_LINKS: process.env.ALLOW_INVITE_LINKS,
   ALLOW_ATTACHMENT_ONLY_MESSAGES: process.env.ALLOW_ATTACHMENT_ONLY_MESSAGES,
   AI_MODERATION_ENABLED: process.env.AI_MODERATION_ENABLED,
@@ -142,6 +144,10 @@ export const config = {
     connectionLimit: parseNumber(env.MYSQL_CONNECTION_LIMIT, 5)
   },
   autoDeleteLinks: parseBoolean(env.AUTO_DELETE_LINKS, true),
+  autoDeleteExplicitSexualContent: parseBoolean(
+    env.AUTO_DELETE_EXPLICIT_SEXUAL_CONTENT,
+    true
+  ),
   allowInviteLinks: parseBoolean(env.ALLOW_INVITE_LINKS, false),
   allowAttachmentOnlyMessages: parseBoolean(env.ALLOW_ATTACHMENT_ONLY_MESSAGES, true),
   aiModerationEnabled: parseBoolean(env.AI_MODERATION_ENABLED, true),

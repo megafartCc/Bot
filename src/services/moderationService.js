@@ -1,6 +1,10 @@
 import { ChannelType } from "discord.js";
 import { insertModerationEvent } from "../repositories/moderationEventsRepository.js";
-import { evaluateLinkPolicy, extractUrls } from "../moderation/linkRules.js";
+import {
+  evaluateExplicitSexualContent,
+  evaluateLinkPolicy,
+  extractUrls
+} from "../moderation/linkRules.js";
 import { hasTextContent, truncateText } from "../utils/text.js";
 
 export class ModerationService {
@@ -22,6 +26,10 @@ export class ModerationService {
 
     if (this.config.autoDeleteLinks) {
       decision = evaluateLinkPolicy(message.content, this.config);
+    }
+
+    if (!decision) {
+      decision = evaluateExplicitSexualContent(message.content, this.config);
     }
 
     if (!decision && this.config.aiModerationEnabled && this.shouldUseAi(message)) {

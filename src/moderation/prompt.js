@@ -12,7 +12,7 @@ Return only valid JSON with this shape:
 }
 
 Policy:
-- Delete scams, phishing, impersonation fraud, malware or exploit distribution, doxxing, targeted hateful abuse, serious harassment, violent threats, self-harm encouragement, sexual content involving minors, and clear spam.
+- Delete scams, phishing, impersonation fraud, malware or exploit distribution, doxxing, targeted hateful abuse, serious harassment, violent threats, self-harm encouragement, explicit sexual content, sexual content involving minors, and clear spam.
 - Do not delete normal conversation, slang, mild profanity, or non-targeted trash talk.
 - If the message is ambiguous, choose not to delete.
 - Keep reasons short and plain.
