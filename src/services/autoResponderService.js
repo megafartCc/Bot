@@ -45,7 +45,7 @@ export class AutoResponderService {
       return false;
     }
 
-    if (this.isCoolingDown(message)) {
+    if (this.hasCooldown() && this.isCoolingDown(message)) {
       return false;
     }
 
@@ -63,7 +63,9 @@ export class AutoResponderService {
           repliedUser: false
         }
       });
-      this.markCooldown(message);
+      if (this.hasCooldown()) {
+        this.markCooldown(message);
+      }
       return true;
     } catch (error) {
       this.logger.warn(
@@ -79,6 +81,10 @@ export class AutoResponderService {
 
   getCooldownKey(message) {
     return `${message.guildId}:${message.channelId}:${message.author.id}`;
+  }
+
+  hasCooldown() {
+    return this.config.autoResponderCooldownSeconds > 0;
   }
 
   isCoolingDown(message) {
