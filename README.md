@@ -37,13 +37,14 @@ Railway-ready Discord moderation bot in JavaScript. It watches server messages, 
 
 1. Create a new Railway project from this folder.
 2. Add a MySQL service or point the env vars at an external MySQL database.
-3. Set your Railway variables from [`.env.example`](c:/out/DiscordBot/.env.example).
+3. Set your Railway variables from `.env.example`.
 4. Use `npm start` as the start command if Railway does not auto-detect it.
 
 ## Important env vars
 
 - `DISCORD_TOKEN`: bot token from Discord.
 - `GROQ_API_KEY`: Groq API key.
+- `MYSQLHOST`, `MYSQLPORT`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQLDATABASE`: MySQL connection values. The bot also accepts the underscore versions if you already use those.
 - `GROQ_MODEL`: default is `llama-3.1-8b-instant` because it is fast and cheap.
 - `MOD_LOG_CHANNEL_ID`: optional channel where the bot posts moderation logs.
 - `ALLOWED_LINK_HOSTS`: comma-separated allowlist like `youtube.com,youtu.be,github.com`.

@@ -1,6 +1,17 @@
 import "dotenv/config";
 import { z } from "zod";
 
+function envValue(...keys) {
+  for (const key of keys) {
+    const value = process.env[key];
+    if (value !== undefined && value !== null && value !== "") {
+      return value;
+    }
+  }
+
+  return undefined;
+}
+
 function parseBoolean(value, fallback = false) {
   if (value === undefined || value === null || value === "") {
     return fallback;
@@ -42,11 +53,11 @@ const envSchema = z.object({
   GROQ_TIMEOUT_MS: z.string().optional(),
   GROQ_TEMPERATURE: z.string().optional(),
   GROQ_MAX_OUTPUT_TOKENS: z.string().optional(),
-  MYSQL_HOST: z.string().min(1, "MYSQL_HOST is required"),
+  MYSQL_HOST: z.string().min(1, "MySQL host is required"),
   MYSQL_PORT: z.string().optional(),
-  MYSQL_USER: z.string().min(1, "MYSQL_USER is required"),
+  MYSQL_USER: z.string().min(1, "MySQL user is required"),
   MYSQL_PASSWORD: z.string().optional(),
-  MYSQL_DATABASE: z.string().min(1, "MYSQL_DATABASE is required"),
+  MYSQL_DATABASE: z.string().min(1, "MySQL database is required"),
   MYSQL_CONNECTION_LIMIT: z.string().optional(),
   AUTO_DELETE_LINKS: z.string().optional(),
   ALLOW_INVITE_LINKS: z.string().optional(),
@@ -64,7 +75,39 @@ const envSchema = z.object({
   EXEMPT_USER_IDS: z.string().optional()
 });
 
-const env = envSchema.parse(process.env);
+const env = envSchema.parse({
+  NODE_ENV: process.env.NODE_ENV,
+  PORT: process.env.PORT,
+  LOG_LEVEL: process.env.LOG_LEVEL,
+  DISCORD_TOKEN: process.env.DISCORD_TOKEN,
+  DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
+  MOD_LOG_CHANNEL_ID: process.env.MOD_LOG_CHANNEL_ID,
+  GROQ_API_KEY: process.env.GROQ_API_KEY,
+  GROQ_MODEL: process.env.GROQ_MODEL,
+  GROQ_TIMEOUT_MS: process.env.GROQ_TIMEOUT_MS,
+  GROQ_TEMPERATURE: process.env.GROQ_TEMPERATURE,
+  GROQ_MAX_OUTPUT_TOKENS: process.env.GROQ_MAX_OUTPUT_TOKENS,
+  MYSQL_HOST: envValue("MYSQLHOST", "MYSQL_HOST"),
+  MYSQL_PORT: envValue("MYSQLPORT", "MYSQL_PORT"),
+  MYSQL_USER: envValue("MYSQLUSER", "MYSQL_USER"),
+  MYSQL_PASSWORD: envValue("MYSQLPASSWORD", "MYSQL_PASSWORD"),
+  MYSQL_DATABASE: envValue("MYSQLDATABASE", "MYSQL_DATABASE"),
+  MYSQL_CONNECTION_LIMIT: process.env.MYSQL_CONNECTION_LIMIT,
+  AUTO_DELETE_LINKS: process.env.AUTO_DELETE_LINKS,
+  ALLOW_INVITE_LINKS: process.env.ALLOW_INVITE_LINKS,
+  ALLOW_ATTACHMENT_ONLY_MESSAGES: process.env.ALLOW_ATTACHMENT_ONLY_MESSAGES,
+  AI_MODERATION_ENABLED: process.env.AI_MODERATION_ENABLED,
+  AI_MODERATION_MIN_LENGTH: process.env.AI_MODERATION_MIN_LENGTH,
+  MAX_STORED_MESSAGE_CHARS: process.env.MAX_STORED_MESSAGE_CHARS,
+  MODERATE_MESSAGE_EDITS: process.env.MODERATE_MESSAGE_EDITS,
+  AUTO_RESPONDER_ENABLED: process.env.AUTO_RESPONDER_ENABLED,
+  AUTO_RESPONDER_COOLDOWN_SECONDS: process.env.AUTO_RESPONDER_COOLDOWN_SECONDS,
+  AUTO_RESPONDER_REPLY_KEY: process.env.AUTO_RESPONDER_REPLY_KEY,
+  ALLOWED_LINK_HOSTS: process.env.ALLOWED_LINK_HOSTS,
+  EXEMPT_CHANNEL_IDS: process.env.EXEMPT_CHANNEL_IDS,
+  EXEMPT_ROLE_IDS: process.env.EXEMPT_ROLE_IDS,
+  EXEMPT_USER_IDS: process.env.EXEMPT_USER_IDS
+});
 
 export const config = {
   nodeEnv: env.NODE_ENV,
