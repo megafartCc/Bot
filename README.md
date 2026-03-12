@@ -46,6 +46,7 @@ Railway-ready Discord moderation bot in JavaScript. It watches server messages, 
 - `GROQ_API_KEY`: Groq API key.
 - `MYSQLHOST`, `MYSQLPORT`, `MYSQLUSER`, `MYSQLPASSWORD`, `MYSQLDATABASE`: MySQL connection values. The bot also accepts the underscore versions if you already use those.
 - `GROQ_MODEL`: default is `llama-3.1-8b-instant` because it is fast and cheap.
+- `GROQ_MODERATION_MODEL`: default is `openai/gpt-oss-safeguard-20b` for the moderation path.
 - `MOD_LOG_CHANNEL_ID`: optional channel where the bot posts moderation logs.
 - `ALLOWED_LINK_HOSTS`: comma-separated allowlist like `youtube.com,youtu.be,github.com`.
 - `EXEMPT_CHANNEL_IDS`, `EXEMPT_ROLE_IDS`, `EXEMPT_USER_IDS`: comma-separated bypass lists.

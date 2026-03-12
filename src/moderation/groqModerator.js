@@ -41,9 +41,11 @@ export class GroqModerator {
 
   async classifyMessage(message, matchedUrls = []) {
     const completion = await this.client.chat.completions.create({
-      model: this.config.groqModel,
-      temperature: this.config.groqTemperature,
-      max_completion_tokens: this.config.groqMaxOutputTokens,
+      model: this.config.groqModerationModel,
+      temperature: this.config.groqModerationTemperature,
+      max_completion_tokens: this.config.groqModerationMaxOutputTokens,
+      top_p: 1,
+      reasoning_effort: this.config.groqModerationReasoningEffort,
       messages: [
         {
           role: "system",
@@ -70,7 +72,7 @@ export class GroqModerator {
         dmMessage: parsed.dm_message,
         confidence: parsed.confidence,
         matchedUrls,
-        model: completion.model || this.config.groqModel
+        model: completion.model || this.config.groqModerationModel
       };
     } catch (error) {
       this.logger.warn(
@@ -90,7 +92,7 @@ export class GroqModerator {
         dmMessage: "",
         confidence: 0,
         matchedUrls,
-        model: completion.model || this.config.groqModel
+        model: completion.model || this.config.groqModerationModel
       };
     }
   }
