@@ -37,9 +37,15 @@ function parseCsv(value) {
     .filter(Boolean);
 }
 
+function uniqueValues(values) {
+  return [...new Set(values)];
+}
+
 function normalizeHost(host) {
   return host.replace(/^www\./i, "").toLowerCase();
 }
+
+const DEFAULT_EXEMPT_ROLE_IDS = ["1481489125789138954"];
 
 const envSchema = z.object({
   NODE_ENV: z.string().default("development"),
@@ -159,6 +165,9 @@ export const config = {
   autoResponderReplyKey: env.AUTO_RESPONDER_REPLY_KEY || "UnknownHub",
   allowedLinkHosts: parseCsv(env.ALLOWED_LINK_HOSTS).map(normalizeHost),
   exemptChannelIds: parseCsv(env.EXEMPT_CHANNEL_IDS),
-  exemptRoleIds: parseCsv(env.EXEMPT_ROLE_IDS),
+  exemptRoleIds: uniqueValues([
+    ...DEFAULT_EXEMPT_ROLE_IDS,
+    ...parseCsv(env.EXEMPT_ROLE_IDS)
+  ]),
   exemptUserIds: parseCsv(env.EXEMPT_USER_IDS)
 };
