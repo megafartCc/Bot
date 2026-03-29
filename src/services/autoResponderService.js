@@ -4,6 +4,20 @@ function isRoughKeyMatch(content) {
   );
 }
 
+function buildKeyReplyText(replyTarget) {
+  const normalized = String(replyTarget ?? "").trim();
+
+  if (!normalized) {
+    return "Get key at <#1481396985662537942>.";
+  }
+
+  if (/^get key at\b/i.test(normalized)) {
+    return /[.!?]$/.test(normalized) ? normalized : `${normalized}.`;
+  }
+
+  return `Get key at ${normalized}${/[.!?]$/.test(normalized) ? "" : "."}`;
+}
+
 export class AutoResponderService {
   constructor({ config, logger, responder }) {
     this.config = config;
@@ -49,7 +63,7 @@ export class AutoResponderService {
       return false;
     }
 
-    const replyText = `Key is ${this.config.autoResponderReplyKey}.`;
+    const replyText = buildKeyReplyText(this.config.autoResponderReplyKey);
     const decision = await this.responder.classifyMessage(message, replyText);
 
     if (!decision.shouldReply) {

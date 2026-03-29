@@ -52,7 +52,7 @@ Railway-ready Discord moderation bot in JavaScript. It watches server messages, 
 - `MOD_LOG_CHANNEL_ID`: optional channel where the bot posts moderation logs.
 - `ALLOWED_LINK_HOSTS`: comma-separated allowlist like `youtube.com,youtu.be,github.com`.
 - `EXEMPT_CHANNEL_IDS`, `EXEMPT_ROLE_IDS`, `EXEMPT_USER_IDS`: comma-separated bypass lists.
-- `AUTO_RESPONDER_REPLY_KEY`: the value inserted into the auto-response, default `UnknownHub`.
+- `AUTO_RESPONDER_REPLY_KEY`: channel mention or full reply text for key questions, default `<#1481396985662537942>`.
 - `AUTO_RESPONDER_COOLDOWN_SECONDS`: set to `0` to reply every time, or a positive number to throttle repeated replies from the same user in the same channel.
 
 ## Database

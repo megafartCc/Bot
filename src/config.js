@@ -162,7 +162,7 @@ export const config = {
   moderateMessageEdits: parseBoolean(env.MODERATE_MESSAGE_EDITS, true),
   autoResponderEnabled: parseBoolean(env.AUTO_RESPONDER_ENABLED, true),
   autoResponderCooldownSeconds: parseNumber(env.AUTO_RESPONDER_COOLDOWN_SECONDS, 30),
-  autoResponderReplyKey: env.AUTO_RESPONDER_REPLY_KEY || "UnknownHub",
+  autoResponderReplyKey: env.AUTO_RESPONDER_REPLY_KEY || "<#1481396985662537942>",
   allowedLinkHosts: parseCsv(env.ALLOWED_LINK_HOSTS).map(normalizeHost),
   exemptChannelIds: parseCsv(env.EXEMPT_CHANNEL_IDS),
   exemptRoleIds: uniqueValues([
